@@ -15,7 +15,9 @@ repositories {
 
 dependencies {
     antlr("org.antlr:antlr4:4.11.1")
+    implementation("com.yuvalshavit:antlr-denter:1.1")
     testImplementation(kotlin("test"))
+    testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.25")
 }
 
 tasks.test {
@@ -35,9 +37,17 @@ sourceSets {
 
 java {
     targetCompatibility = JavaVersion.VERSION_11
-    sourceCompatibility = JavaVersion.VERSION_17
+    sourceCompatibility = JavaVersion.VERSION_11
 }
 
 tasks.withType<KotlinCompile> {
     kotlinOptions.jvmTarget = "11"
+}
+
+tasks.compileKotlin {
+    dependsOn(tasks.generateGrammarSource)
+}
+
+tasks.compileTestKotlin {
+    dependsOn(tasks.generateTestGrammarSource)
 }
