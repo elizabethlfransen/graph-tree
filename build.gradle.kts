@@ -2,6 +2,8 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 
 plugins {
     kotlin("jvm") version "1.7.10"
+    antlr
+    application
 }
 
 group = "io.github.elizabethlfransen.graph-tree"
@@ -12,11 +14,23 @@ repositories {
 }
 
 dependencies {
+    antlr("org.antlr:antlr4:4.11.1")
     testImplementation(kotlin("test"))
 }
 
 tasks.test {
     useJUnitPlatform()
+}
+
+fun fixAntlrGrammarSources() {
+    sourceSets.configureEach {
+        @Suppress("UnstableApiUsage")
+        java.srcDirs(antlr.sourceDirectories)
+    }
+}
+
+sourceSets {
+    fixAntlrGrammarSources()
 }
 
 java {
