@@ -12,4 +12,6 @@ data class GraphTreeNode(
     val label: String,
     /** The child nodes */
     val children: List<GraphTreeNode>
-)
+) {
+    constructor(label: String, vararg children: GraphTreeNode) : this(label, children.toList())
+}
