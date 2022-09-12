@@ -4,6 +4,7 @@ import assertk.assertThat
 import assertk.assertions.isDataClassEqualTo
 import assertk.assertions.isFailure
 import assertk.assertions.isInstanceOf
+import io.github.elizabethlfransen.graphtree.dsl.graphTreeDocument
 import io.github.elizabethlfransen.graphtree.internal.*
 import org.antlr.v4.runtime.BailErrorStrategy
 import org.antlr.v4.runtime.CharStreams
@@ -28,7 +29,7 @@ class ParserTests {
         ParseAndEvaluationResult(
             "",
             DocumentNode(),
-            GraphTreeDocument(),
+            graphTreeDocument(),
             name = "empty document"
         ),
         ParseAndEvaluationResult(
@@ -38,9 +39,9 @@ class ParserTests {
             DocumentNode(
                 LabelNode("test")
             ),
-            GraphTreeDocument(
-                GraphTreeNode("test")
-            )
+            graphTreeDocument {
+                node("test")
+            }
         ),
         ParseAndEvaluationResult(
             """
@@ -53,12 +54,11 @@ class ParserTests {
                     LabelNode("test1")
                 )
             ),
-            GraphTreeDocument(
-                GraphTreeNode(
-                    "test",
-                    GraphTreeNode("test1")
-                )
-            )
+            graphTreeDocument {
+                node("test") {
+                    node("test1")
+                }
+            }
         ),
         ParseAndEvaluationResult(
             """
@@ -113,22 +113,19 @@ class ParserTests {
                     )
                 )
             ),
-            GraphTreeDocument(
-                GraphTreeNode(
-                    "test1",
-                    GraphTreeNode(
-                        "test1a",
-                        GraphTreeNode("test1aa")
-                    )
-                ),
-                GraphTreeNode(
-                    "test2",
-                    GraphTreeNode(
-                        "test2a",
-                        GraphTreeNode("test2aa")
-                    )
-                )
-            )
+            graphTreeDocument {
+
+                node("test1") {
+                    node("test1a") {
+                        node("test1aa")
+                    }
+                }
+                node("test2") {
+                    node("test2a") {
+                        node("test2aa")
+                    }
+                }
+            }
         )
     )
 
@@ -169,8 +166,7 @@ class ParserTests {
 
     @TestFactory
     fun testEvaluating() = testCases
-        .map {
-            case ->
+        .map { case ->
             dynamicTest(
                 """
                         given ${case.name}
