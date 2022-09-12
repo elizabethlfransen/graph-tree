@@ -15,6 +15,8 @@ data class GraphTreeNodeInit internal constructor(
                 .build()
         )
     }
+    operator fun String.invoke(init: GraphTreeNodeInit.() -> Unit = {}) =
+        node(this, init)
 
     internal fun build() = GraphTreeNode(label, children)
 }
@@ -28,6 +30,9 @@ data class GraphTreeDocumentInit internal constructor(val children: MutableList<
                 .build()
         )
     }
+
+    operator fun String.invoke(init: GraphTreeNodeInit.() -> Unit = {}) =
+        node(this, init)
 
     internal fun build() = GraphTreeDocument(children)
 }
