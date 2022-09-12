@@ -17,6 +17,7 @@ dependencies {
     antlr("org.antlr:antlr4:4.11.1")
     implementation("com.yuvalshavit:antlr-denter:1.1")
     testImplementation(kotlin("test"))
+    testImplementation(kotlin("reflect"))
     testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.25")
 }
 
