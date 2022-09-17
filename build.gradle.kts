@@ -16,6 +16,11 @@ repositories {
 dependencies {
     antlr("org.antlr:antlr4:4.11.1")
     implementation("com.yuvalshavit:antlr-denter:1.1")
+    implementation("guru.nidi:graphviz-java:0.18.1")
+    implementation("org.slf4j:slf4j-simple:2.0.0")
+    implementation("org.graalvm.js:js:22.2.0")
+    implementation("com.github.ajalt.clikt:clikt:3.5.0")
+    testImplementation("guru.nidi:graphviz-kotlin:0.18.1")
     testImplementation(kotlin("test"))
     testImplementation(kotlin("reflect"))
     testImplementation("com.willowtreeapps.assertk:assertk-jvm:0.25")
@@ -51,4 +56,8 @@ tasks.compileKotlin {
 
 tasks.compileTestKotlin {
     dependsOn(tasks.generateTestGrammarSource)
+}
+
+application {
+    mainClass.set("io.github.elizabethlfransen.graphtree.app.AppKt")
 }
