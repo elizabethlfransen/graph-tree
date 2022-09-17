@@ -4,6 +4,8 @@ A DSL for defining trees
 ## Installation
 *If building from source please see [Building](#building)*
 
+**Download the latest version from here**: https://github.com/elizabethlfransen/graph-tree/releases/latest
+
 GraphTree requires java 11 to run
 
 Installation Directions:
