@@ -1,5 +1,7 @@
 package io.github.elizabethlfransen.graphtree.app
 
+import com.github.ajalt.clikt.completion.CompletionCandidates
+import com.github.ajalt.clikt.completion.completionOption
 import com.github.ajalt.clikt.core.CliktCommand
 import com.github.ajalt.clikt.parameters.options.default
 import com.github.ajalt.clikt.parameters.options.option
@@ -27,13 +29,17 @@ class GraphTreeCommand : CliktCommand(
         .enum<Format>()
         .default(Format.PNG)
 
-    private val input by option("--input", "-i", help = "Input file path or \"-\" for stdin")
+    private val input by option("--input", "-i", help = "Input file path or \"-\" for stdin", completionCandidates = CompletionCandidates.Path)
         .inputStream()
         .defaultStdin()
 
-    private val output by option("--output", "-o", help = "Output file path or \"-\" for stdout")
+    private val output by option("--output", "-o", help = "Output file path or \"-\" for stdout", completionCandidates = CompletionCandidates.Path)
         .outputStream()
         .defaultStdout()
+
+    init {
+        completionOption(help = "Generates autocomplete script for the command.\nExample Usage: graph-tree --generate-autocomplete zsh > ~/my-program-completion.sh\nThen source ~/my-program-completion.sh")
+    }
 
     override fun run() =
         input
